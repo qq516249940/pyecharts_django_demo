@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+
 # Create your models here.
 
 
@@ -57,10 +58,43 @@ class Asset(models.Model):
     m_time = models.DateTimeField(auto_now=True, verbose_name='更新日期')
 
     def __str__(self):
-        # print(self.get_asset_type_display())  格式get_xxx字段_display()  获取choices对应的值
+        # print(self.get_asset_type_display())  格式get_xxx字段_display()  获取choices对应的值  http://www.john-player.com/django/how-to-register-a-model-with-django-admin/
         return '<%s>  %s' % (self.get_asset_type_display(), self.name)
 
     class Meta:   # 元数据类，每个元数据类也只对自己所在模型起作用。
         verbose_name = '资产总表'
         verbose_name_plural = "资产总表"  # 复数名
         ordering = ['-c_time']    # 排序  -表示降序排列
+
+class Server(models.Model):
+    """服务器设备"""
+
+    sub_asset_type_choice = (
+        (0, 'PC服务器'),
+        (1, '刀片机'),
+        (2, '小型机'),
+    )
+
+    created_by_choice = (
+        ('auto', '自动添加'),
+        ('manual', '手工录入'),
+    )
+
+    asset = models.OneToOneField('Asset', on_delete=models.CASCADE)  # 非常关键的一对一关联！asset被删除的时候一并删除server
+    sub_asset_type = models.SmallIntegerField(choices=sub_asset_type_choice, default=0, verbose_name="服务器类型")
+    created_by = models.CharField(choices=created_by_choice, max_length=32, default='auto', verbose_name="添加方式")
+    hosted_on = models.ForeignKey('self', related_name='hosted_on_server',
+                                  blank=True, null=True, verbose_name="宿主机", on_delete=models.CASCADE)  # 虚拟机专用字段
+    model = models.CharField(max_length=128, null=True, blank=True, verbose_name='服务器型号')
+    raid_type = models.CharField(max_length=512, blank=True, null=True, verbose_name='Raid类型')
+
+    os_type = models.CharField('操作系统类型', max_length=64, blank=True, null=True)
+    os_distribution = models.CharField('发行商', max_length=64, blank=True, null=True)
+    os_release = models.CharField('操作系统版本', max_length=64, blank=True, null=True)
+
+    def __str__(self):
+        return '%s--%s--%s <sn:%s>' % (self.asset.name, self.get_sub_asset_type_display(), self.model, self.asset.sn)
+
+    class Meta:
+        verbose_name = '服务器'
+        verbose_name_plural = "服务器"
