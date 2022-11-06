@@ -35,6 +35,8 @@ INSTALLED_APPS = [
     'demo'  # <---
 ]
 ```
+
+
 编辑 demo/urls.py 文件
 ```bash
 # demo/urls.py
@@ -119,3 +121,14 @@ from collections.abc import Iterable
 ```
 
 ![](2022-10-22-13-38-40.png)
+
+cmdb模型图
+![](2022-11-05-15-04-23.png)
+
+
+学习地址：
+[CMDB资产管理系统](https://www.liujiangblog.com/course/django/118)  内容有点旧，django 2.2的
+
+## 管理员帐号密码
+http://127.0.0.1:8000/admin/
+admin:admin

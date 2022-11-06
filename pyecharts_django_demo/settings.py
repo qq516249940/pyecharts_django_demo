@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'demo'  # <---
+    'demo',  # <---
+    'cmdb',
 ]
 
 MIDDLEWARE = [
@@ -106,11 +107,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Asia/Shanghai'
 
 USE_I18N = True
-
-USE_TZ = True
+# 写入数据库的时间和这个有关USE_TZ
+USE_TZ = False
 
 
 # Static files (CSS, JavaScript, Images)
