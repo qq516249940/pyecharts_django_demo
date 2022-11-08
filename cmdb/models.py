@@ -98,3 +98,98 @@ class Server(models.Model):
     class Meta:
         verbose_name = '服务器'
         verbose_name_plural = "服务器"
+
+class SecurityDevice(models.Model):
+    """安全设备"""
+
+    sub_asset_type_choice = (
+        (0, '防火墙'),
+        (1, '入侵检测设备'),
+        (2, '互联网网关'),
+        (4, '运维审计系统'),
+    )
+
+    asset = models.OneToOneField('Asset', on_delete=models.CASCADE)
+    sub_asset_type = models.SmallIntegerField(choices=sub_asset_type_choice, default=0, verbose_name="安全设备类型")
+    model = models.CharField(max_length=128, default='未知型号', verbose_name='安全设备型号')
+
+    def __str__(self):
+        return self.asset.name + "--" + self.get_sub_asset_type_display() + str(self.model) + " id:%s" % self.id
+
+    class Meta:
+        verbose_name = '安全设备'
+        verbose_name_plural = "安全设备"
+
+
+class StorageDevice(models.Model):
+    """存储设备"""
+
+    sub_asset_type_choice = (
+        (0, '磁盘阵列'),
+        (1, '网络存储器'),
+        (2, '磁带库'),
+        (4, '磁带机'),
+    )
+
+    asset = models.OneToOneField('Asset', on_delete=models.CASCADE)
+    sub_asset_type = models.SmallIntegerField(choices=sub_asset_type_choice, default=0, verbose_name="存储设备类型")
+    model = models.CharField(max_length=128, default='未知型号', verbose_name='存储设备型号')
+
+    def __str__(self):
+        return self.asset.name + "--" + self.get_sub_asset_type_display() + str(self.model) + " id:%s" % self.id
+
+    class Meta:
+        verbose_name = '存储设备'
+        verbose_name_plural = "存储设备"
+
+
+class NetworkDevice(models.Model):
+    """网络设备"""
+
+    sub_asset_type_choice = (
+        (0, '路由器'),
+        (1, '交换机'),
+        (2, '负载均衡'),
+        (4, 'VPN设备'),
+    )
+
+    asset = models.OneToOneField('Asset', on_delete=models.CASCADE)
+    sub_asset_type = models.SmallIntegerField(choices=sub_asset_type_choice, default=0, verbose_name="网络设备类型")
+
+    vlan_ip = models.GenericIPAddressField(blank=True, null=True, verbose_name="VLanIP")
+    intranet_ip = models.GenericIPAddressField(blank=True, null=True, verbose_name="内网IP")
+
+    model = models.CharField(max_length=128, default='未知型号',  verbose_name="网络设备型号")
+    firmware = models.CharField(max_length=128, blank=True, null=True, verbose_name="设备固件版本")
+    port_num = models.SmallIntegerField(null=True, blank=True, verbose_name="端口个数")
+    device_detail = models.TextField(null=True, blank=True, verbose_name="详细配置")
+
+    def __str__(self):
+        return '%s--%s--%s <sn:%s>' % (self.asset.name, self.get_sub_asset_type_display(), self.model, self.asset.sn)
+
+    class Meta:
+        verbose_name = '网络设备'
+        verbose_name_plural = "网络设备"
+
+
+class Software(models.Model):
+    """
+    只保存付费购买的软件
+    """
+    sub_asset_type_choice = (
+        (0, '操作系统'),
+        (1, '办公\开发软件'),
+        (2, '业务软件'),
+    )
+
+    sub_asset_type = models.SmallIntegerField(choices=sub_asset_type_choice, default=0, verbose_name="软件类型")
+    license_num = models.IntegerField(default=1, verbose_name="授权数量")
+    version = models.CharField(max_length=64, unique=True, help_text='例如: RedHat release 7 (Final)',
+                               verbose_name='软件/系统版本')
+
+    def __str__(self):
+        return '%s--%s' % (self.get_sub_asset_type_display(), self.version)
+
+    class Meta:
+        verbose_name = '软件/系统'
+        verbose_name_plural = "软件/系统"        
