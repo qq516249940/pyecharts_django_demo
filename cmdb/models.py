@@ -29,20 +29,20 @@ class Asset(models.Model):
                             verbose_name="资产名称")     # 不可重复
     sn = models.CharField(max_length=128, unique=True,
                           verbose_name="资产序列号")  # 不可重复
-    # business_unit = models.ForeignKey('BusinessUnit', null=True, blank=True, verbose_name='所属业务线',
-    #                                   on_delete=models.SET_NULL)
+    business_unit = models.ForeignKey('BusinessUnit', null=True, blank=True, verbose_name='所属业务线',
+                                      on_delete=models.SET_NULL)
     status = models.SmallIntegerField(
         choices=asset_status, default=0, verbose_name='设备状态')
 
-    # manufacturer = models.ForeignKey('Manufacturer', null=True, blank=True, verbose_name='制造商',
-    #                                  on_delete=models.SET_NULL)
+    manufacturer = models.ForeignKey('Manufacturer', null=True, blank=True, verbose_name='制造商',
+                                     on_delete=models.SET_NULL)
     manage_ip = models.GenericIPAddressField(
         null=True, blank=True, verbose_name='管理IP')
-    # tags = models.ManyToManyField('Tag', blank=True, verbose_name='标签')
+    tags = models.ManyToManyField('Tag', blank=True, verbose_name='标签')
     admin = models.ForeignKey(User, null=True, blank=True, verbose_name='资产管理员', related_name='admin',
                               on_delete=models.SET_NULL)
-    # idc = models.ForeignKey('IDC', null=True, blank=True,
-    #                         verbose_name='所在机房', on_delete=models.SET_NULL)
+    idc = models.ForeignKey('IDC', null=True, blank=True,
+                            verbose_name='所在机房', on_delete=models.SET_NULL)
     # contract = models.ForeignKey(
     #     'Contract', null=True, blank=True, verbose_name='合同', on_delete=models.SET_NULL)
 
