@@ -331,3 +331,23 @@ class Disk(models.Model):
         verbose_name = '硬盘'
         verbose_name_plural = "硬盘"
         unique_together = ('asset', 'sn')        
+
+
+class NIC(models.Model):
+    """网卡组件"""
+
+    asset = models.ForeignKey('Asset', on_delete=models.CASCADE)  # 注意要用外键
+    name = models.CharField('网卡名称', max_length=64, blank=True, null=True)
+    model = models.CharField('网卡型号', max_length=128)
+    mac = models.CharField('MAC地址', max_length=64)  # 虚拟机有可能会出现同样的mac地址
+    ip_address = models.GenericIPAddressField('IP地址', blank=True, null=True)
+    net_mask = models.CharField('掩码', max_length=64, blank=True, null=True)
+    bonding = models.CharField('绑定地址', max_length=64, blank=True, null=True)
+
+    def __str__(self):
+        return '%s:  %s:  %s' % (self.asset.name, self.model, self.mac)
+
+    class Meta:
+        verbose_name = '网卡'
+        verbose_name_plural = "网卡"
+        unique_together = ('asset', 'model', 'mac')  # 资产、型号和mac必须联合唯一。防止虚拟机中的特殊情况发生错误。
