@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from cmdb.models import Asset,Server,SecurityDevice,StorageDevice,NetworkDevice,Software
+from cmdb.models import Asset,Server,SecurityDevice,StorageDevice,NetworkDevice,Software,CPU
  
 # Register your models here.
 ### 注册模型
@@ -11,3 +11,4 @@ admin.site.register(SecurityDevice)
 admin.site.register(StorageDevice)
 admin.site.register(NetworkDevice)
 admin.site.register(Software)
+admin.site.register(CPU)

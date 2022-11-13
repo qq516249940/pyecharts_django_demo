@@ -270,3 +270,18 @@ class Tag(models.Model):
     class Meta:
         verbose_name = '标签'
         verbose_name_plural = "标签"        
+
+class CPU(models.Model):
+    """CPU组件"""
+
+    asset = models.OneToOneField('Asset', on_delete=models.CASCADE)  # 设备上的cpu肯定都是一样的，所以不需要建立多个cpu数据，一条就可以，因此使用一对一。
+    cpu_model = models.CharField('CPU型号', max_length=128, blank=True, null=True)
+    cpu_count = models.PositiveSmallIntegerField('物理CPU个数', default=1)
+    cpu_core_count = models.PositiveSmallIntegerField('CPU核数', default=1)
+
+    def __str__(self):
+        return self.asset.name + ":   " + self.cpu_model
+
+    class Meta:
+        verbose_name = 'CPU'
+        verbose_name_plural = "CPU"        
