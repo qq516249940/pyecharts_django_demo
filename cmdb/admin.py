@@ -8,7 +8,8 @@ from cmdb.models import (Asset,Server,
                         BusinessUnit,
                         Contract,
                         Tag,
-                        RAM
+                        RAM,
+                        Disk
 
 )
 # Register your models here.
@@ -23,3 +24,4 @@ admin.site.register(Software)
 admin.site.register(CPU)
 admin.site.register([IDC,Manufacturer,BusinessUnit,Contract,Tag])
 admin.site.register(RAM)
+admin.site.register(Disk)
