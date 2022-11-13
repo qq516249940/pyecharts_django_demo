@@ -10,7 +10,8 @@ from cmdb.models import (Asset,Server,
                         Tag,
                         RAM,
                         Disk,
-                        NIC
+                        NIC,
+                        NewAssetApprovalZone
 
 )
 # Register your models here.
@@ -27,3 +28,4 @@ admin.site.register([IDC,Manufacturer,BusinessUnit,Contract,Tag])
 admin.site.register(RAM)
 admin.site.register(Disk)
 admin.site.register(NIC)
+admin.site.register(NewAssetApprovalZone)

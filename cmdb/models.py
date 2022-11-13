@@ -351,3 +351,42 @@ class NIC(models.Model):
         verbose_name = '网卡'
         verbose_name_plural = "网卡"
         unique_together = ('asset', 'model', 'mac')  # 资产、型号和mac必须联合唯一。防止虚拟机中的特殊情况发生错误。
+
+
+class NewAssetApprovalZone(models.Model):
+    """新资产待审批区"""
+
+    sn = models.CharField('资产SN号', max_length=128, unique=True)  # 此字段必填
+    asset_type_choice = (
+        ('server', '服务器'),
+        ('networkdevice', '网络设备'),
+        ('storagedevice', '存储设备'),
+        ('securitydevice', '安全设备'),
+        ('software', '软件资产'),
+    )
+    asset_type = models.CharField(choices=asset_type_choice, default='server', max_length=64, blank=True, null=True,
+                                  verbose_name='资产类型')
+
+    manufacturer = models.CharField(max_length=64, blank=True, null=True, verbose_name='生产厂商')
+    model = models.CharField(max_length=128, blank=True, null=True, verbose_name='型号')
+    ram_size = models.PositiveIntegerField(blank=True, null=True, verbose_name='内存大小')
+    cpu_model = models.CharField(max_length=128, blank=True, null=True, verbose_name='CPU型号')
+    cpu_count = models.PositiveSmallIntegerField('CPU物理数量', blank=True, null=True)
+    cpu_core_count = models.PositiveSmallIntegerField('CPU核心数量', blank=True, null=True)
+    os_distribution = models.CharField('发行商', max_length=64, blank=True, null=True)
+    os_type = models.CharField('系统类型', max_length=64, blank=True, null=True)
+    os_release = models.CharField('操作系统版本号', max_length=64, blank=True, null=True)
+
+    data = models.TextField('资产数据')  # 此字段必填
+
+    c_time = models.DateTimeField('汇报日期', auto_now_add=True)
+    m_time = models.DateTimeField('数据更新日期', auto_now=True)
+    approved = models.BooleanField('是否批准', default=False)
+
+    def __str__(self):
+        return self.sn
+
+    class Meta:
+        verbose_name = '新上线待批准资产'
+        verbose_name_plural = "新上线待批准资产"
+        ordering = ['-c_time']
