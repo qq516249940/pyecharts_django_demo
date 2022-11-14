@@ -390,3 +390,37 @@ class NewAssetApprovalZone(models.Model):
         verbose_name = '新上线待批准资产'
         verbose_name_plural = "新上线待批准资产"
         ordering = ['-c_time']
+
+
+class EventLog(models.Model):
+    """
+    日志.
+    在关联对象被删除的时候，不能一并删除，需保留日志。
+    因此，on_delete=models.SET_NULL
+    """
+
+    name = models.CharField('事件名称', max_length=128)
+    event_type_choice = (
+        (0, '其它'),
+        (1, '硬件变更'),
+        (2, '新增配件'),
+        (3, '设备下线'),
+        (4, '设备上线'),
+        (5, '定期维护'),
+        (6, '业务上线\更新\变更'),
+    )
+    asset = models.ForeignKey('Asset', blank=True, null=True, on_delete=models.SET_NULL)  # 当资产审批成功时有这项数据
+    new_asset = models.ForeignKey('NewAssetApprovalZone', blank=True, null=True, on_delete=models.SET_NULL)  # 当资产审批失败时有这项数据
+    event_type = models.SmallIntegerField('事件类型', choices=event_type_choice, default=4)
+    component = models.CharField('事件子项', max_length=256, blank=True, null=True)
+    detail = models.TextField('事件详情')
+    date = models.DateTimeField('事件时间', auto_now_add=True)
+    user = models.ForeignKey(User, blank=True, null=True, verbose_name='事件执行人', on_delete=models.SET_NULL)  # 自动更新资产数据时没有执行人
+    memo = models.TextField('备注', blank=True, null=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = '事件纪录'
+        verbose_name_plural = "事件纪录"

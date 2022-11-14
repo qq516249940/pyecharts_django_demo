@@ -11,7 +11,8 @@ from cmdb.models import (Asset,Server,
                         RAM,
                         Disk,
                         NIC,
-                        NewAssetApprovalZone
+                        NewAssetApprovalZone,
+                        EventLog
 
 )
 # Register your models here.
@@ -29,3 +30,4 @@ admin.site.register(RAM)
 admin.site.register(Disk)
 admin.site.register(NIC)
 admin.site.register(NewAssetApprovalZone)
+admin.site.register(EventLog)
