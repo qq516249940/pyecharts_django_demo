@@ -424,3 +424,5 @@ class EventLog(models.Model):
     class Meta:
         verbose_name = '事件纪录'
         verbose_name_plural = "事件纪录"
+
+      

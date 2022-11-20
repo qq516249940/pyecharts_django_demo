@@ -125,6 +125,11 @@ from collections.abc import Iterable
 cmdb模型图
 ![](2022-11-05-15-04-23.png)
 
+一般Web框架的架构
+![](2022-11-19-12-45-31.png)
+
+Django的MTV模型组织，分别是models，views,Templates
+![](2022-11-19-12-48-50.png)
 
 学习地址：
 [CMDB资产管理系统](https://www.liujiangblog.com/course/django/118)  内容有点旧，django 2.2的
