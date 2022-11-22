@@ -6,6 +6,7 @@ Django 模板渲染模式
 本环境
 django 4.1
 pyecharts 1.9
+python 3.10.6
 
 [官网教程](https://pyecharts.org/#/zh-cn/web_django)
 
@@ -133,6 +134,9 @@ Django的MTV模型组织，分别是models，views,Templates
 
 学习地址：
 [CMDB资产管理系统](https://www.liujiangblog.com/course/django/118)  内容有点旧，django 2.2的
+
+基于Python的Web开发技术栈：
+![](2022-11-21-17-25-32.png)
 
 ## 管理员帐号密码
 http://127.0.0.1:8000/admin/
