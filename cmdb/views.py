@@ -30,7 +30,7 @@ def report(request):
             asset_obj = models.Asset.objects.filter(sn=sn)
             if asset_obj:
                 # 进入已上线资产的数据更新流程
-                pass
+                update_asset = asset_handler.UpdateAsset(request, asset_obj[0], data)
                 return HttpResponse("资产数据已经更新！")
             else:   # 如果已上线资产中没有，那么说明是未批准资产，进入新资产待审批区，更新或者创建资产。
                 obj = asset_handler.NewAsset(request, data)
