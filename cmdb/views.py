@@ -4,6 +4,9 @@ from django.views.decorators.csrf import csrf_exempt
 import json
 from cmdb import models
 from cmdb import asset_handler
+
+from django.shortcuts import get_object_or_404
+
 # Create your views here.
 
 @csrf_exempt
@@ -39,3 +42,25 @@ def report(request):
         else:
             return HttpResponse("没有资产sn序列号，请检查数据！")
     return HttpResponse('200 ok')
+
+
+def index(request):
+
+    assets = models.Asset.objects.all()
+    return render(request, 'cmdb/index.html', locals())
+
+
+def dashboard(request):
+    pass
+    return render(request, 'cmdb/dashboard.html', locals())
+
+
+def detail(request, asset_id):
+    """
+    以显示服务器类型资产详细为例，安全设备、存储设备、网络设备等参照此例。
+    :param request:
+    :param asset_id:
+    :return:
+    """
+    asset = get_object_or_404(models.Asset, id=asset_id)
+    return render(request, 'cmdb/detail.html', locals())    
