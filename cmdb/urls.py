@@ -2,7 +2,7 @@ from django.urls import path
 
 from . import views
 
-app_name = "cmdb"
+app_name = "cmdb"    #  前端页面访问{% url 'cmdb:dashboard' %}用到这里的cmdb
 
 urlpatterns = [
     path(r'report/', views.report, name='report'),  # <---

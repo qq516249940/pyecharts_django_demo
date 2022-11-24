@@ -138,6 +138,9 @@ Django的MTV模型组织，分别是models，views,Templates
 基于Python的Web开发技术栈：
 ![](2022-11-21-17-25-32.png)
 
+资产总表：
+![](2022-11-23-16-56-25.png)
+
 ## 管理员帐号密码
 http://127.0.0.1:8000/admin/
 admin:admin

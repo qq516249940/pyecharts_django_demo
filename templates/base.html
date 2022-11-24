@@ -8,7 +8,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+
   <title>{% block title %}base{% endblock %}</title>
+
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <link rel="stylesheet" href="{% static 'adminlet-2.4.10/bower_components/bootstrap/dist/css/bootstrap.min.css' %}">
@@ -23,7 +25,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         apply the skin class to the body tag so the changes take effect. -->
   <link rel="stylesheet" href="{% static 'adminlet-2.4.10/dist/css/skins/skin-blue.min.css' %}">
 
-    {% block css %}{% endblock %}
+  {% block css %}{% endblock %}
 
 </head>
 <!--
@@ -69,6 +71,7 @@ desired effect
       <!-- Navbar Right Menu -->
       <div class="navbar-custom-menu">
         <ul class="nav navbar-nav">
+
           <!-- Messages: style can be found in dropdown.less-->
           <li class="dropdown messages-menu">
             <!-- Menu toggle button -->
@@ -128,6 +131,7 @@ desired effect
               <li class="footer"><a href="#">View all</a></li>
             </ul>
           </li>
+
           <!-- Tasks Menu -->
           <li class="dropdown tasks-menu">
             <!-- Menu Toggle Button -->
@@ -165,8 +169,10 @@ desired effect
               </li>
             </ul>
           </li>
+
           <!-- User Account Menu -->
           <li class="dropdown user user-menu">
+
             <!-- Menu Toggle Button -->
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <!-- The user image in the navbar-->
@@ -181,7 +187,7 @@ desired effect
 
                 <p>
                   系统管理员
-                  <small>2019-4-12</small>
+                  <small>2019-4-16</small>
                 </p>
               </li>
               <!-- Menu Body -->
@@ -210,6 +216,7 @@ desired effect
               </li>
             </ul>
           </li>
+          <!-- Control Sidebar Toggle Button -->
         </ul>
       </div>
     </nav>
@@ -249,6 +256,7 @@ desired effect
       <ul class="sidebar-menu" data-widget="tree">
         <li class="header">导航栏</li>
         <!-- Optionally, you can add icons to the links -->
+
         <li><a href="{% url 'cmdb:dashboard' %}"><i class="fa fa-dashboard"></i> <span>仪表盘</span></a></li>
         <li><a href="{% url 'cmdb:index' %}"><i class="fa fa-table"></i> <span>资产总表</span></a></li>
       </ul>
@@ -264,14 +272,13 @@ desired effect
 
     <!-- Main content -->
     <section class="content container-fluid">
-        {#        主体内容全放到这里！#}
-        {% block content %}{% endblock %}
+
+      {% block content %}{% endblock %}
+
     </section>
     <!-- /.content -->
-
   </div>
   <!-- /.content-wrapper -->
-
 
   <!-- Main Footer -->
   <footer class="main-footer">
@@ -282,7 +289,6 @@ desired effect
     <!-- Default to the left -->
     <strong>Copyright &copy; 2019 <a href="http://www.liujiangblog.com" target="_blank">刘江的Django教程</a>.</strong> All rights reserved.
   </footer>
-
 
 </div>
 <!-- ./wrapper -->
@@ -296,15 +302,18 @@ desired effect
 <!-- AdminLTE App -->
 <script src="{% static 'adminlet-2.4.10/dist/js/adminlte.min.js' %}"></script>
 
-{% block script %}{% endblock %}
-
 <script>
-    $('ul.sidebar-menu li').each(function(i){
+    $('ul.sidebar-menu li').each(function (i) {
         if($(this).children().first().attr('href')==='{{ request.path }}'){
             $(this).addClass('active');
         }else{
         }
-    });
+    })
 </script>
+
+
+{% block script %}{% endblock %}
+
+
 </body>
 </html>
